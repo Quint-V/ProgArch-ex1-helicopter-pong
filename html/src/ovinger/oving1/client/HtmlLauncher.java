@@ -3,7 +3,7 @@ package ovinger.oving1.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import ovinger.oving1.helicopter;
+import ovinger.oving1.GameDemo;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -46,6 +46,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new helicopter();
+                return new GameDemo();
         }
 }
