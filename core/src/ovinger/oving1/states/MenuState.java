@@ -13,19 +13,22 @@ import ovinger.oving1.GameDemo;
 public class MenuState extends State{
 
     private Texture playBtn;
+    private int pointerY;
 
     public MenuState(GameStateManager gsm){
         super(gsm);
-        cam.setToOrtho(true, GameDemo.WIDTH/2, GameDemo.HEIGHT/2);
+        cam.setToOrtho(false, GameDemo.WIDTH, GameDemo.HEIGHT);
         playBtn = new Texture("playbtn.png");
     }
 
     @Override
     protected void handleInput() {
-        int pointerY = Gdx.input.getY();
         if (Gdx.input.justTouched()) {
-            if (0 < pointerY && pointerY < 200) {
-                gsm.set(new Task1State(gsm));
+            pointerY = Gdx.input.getY();
+            if (pointerY < 200-playBtn.getHeight()) {
+//            if (GameDemo.HEIGHT-(200 + playBtn.getHeight()/2) < pointerY &&
+//					pointerY < GameDemo.HEIGHT - 200 + playBtn.getHeight()) {
+                gsm.set(new PlayState(gsm));
             }
         }
     }
@@ -38,12 +41,16 @@ public class MenuState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
-        sb.draw(playBtn, cam.position.x - playBtn.getWidth() / 2 , 200-playBtn.getHeight()/2);
+        sb.begin();
+        sb.draw(playBtn, cam.position.x - playBtn.getWidth() / 2 ,
+                GameDemo.HEIGHT - (200 - playBtn.getHeight()) );
+        sb.end();
     }
 
     @Override
     public void dispose() {
-
+        playBtn.dispose();
+        System.out.print("\n Menu state disposed.");
     }
 
 }
