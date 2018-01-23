@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector3;
 
 import ovinger.oving1.GameDemo;
 
@@ -15,41 +16,82 @@ import ovinger.oving1.GameDemo;
 public class Heli {
 
     private static final int DEFAULT_X_SPEED = 150, DEFAULT_Y_SPEED = 150*9/16;
-    private Vector2 position, velocity;
+    private Vector3 position, velocity;
 
     private Texture texture;
     private Anim heliAnim;
     private Rectangle Hitbox;
+    private boolean FACING_RIGHT;
 
     public Heli(int x, int y){
-        position = new Vector2(x,y);
-        velocity = new Vector2(DEFAULT_X_SPEED, DEFAULT_Y_SPEED);
+        position = new Vector3(x,y, 0);
+        velocity = new Vector3(DEFAULT_X_SPEED, DEFAULT_Y_SPEED, 0);
         texture = new Texture("heliAnim.png");
         heliAnim = new Anim(new TextureRegion(texture), 4, 0.4f);
-        Hitbox = new Rectangle(x,y, heliAnim.getFrame().getRegionX(),
-                               heliAnim.getFrame().getRegionY());
+        Hitbox = new Rectangle(x,y, heliAnim.getFrame().getRegionWidth(),
+                               heliAnim.getFrame().getRegionHeight());
+        FACING_RIGHT = false;
+        fixOrientation();
     }
+    
+    public Heli(int x, int y, int speedX, int speedY){
+        position = new Vector3(x,y, 0);
+        velocity = new Vector3(speedX, speedY, 0);
+        texture = new Texture("heliAnim.png");
+        heliAnim = new Anim(new TextureRegion(texture), 4, 0.4f);
+        Hitbox = new Rectangle(x,y, heliAnim.getFrame().getRegionWidth(),
+                               heliAnim.getFrame().getRegionHeight());
+        FACING_RIGHT = false;
+        fixOrientation();
+    }
+    
+    public int getHeight() {return heliAnim.getFrame().getRegionHeight();}
+    public int getWidth() {return heliAnim.getFrame().getRegionWidth();}
     
     public void setPosition(int x, int y){
         position.x = x;
         position.y = y;
     }
 
-    public void update(float dt){
-        heliAnim.update(dt);
-        velocity.scl(dt);
-        position.add(velocity.x, velocity.y);
-        velocity.scl(1/dt);
-        Hitbox.setPosition(position.x, position.y);
+    public void setVelocity(float x, float y){
+        velocity.x=x; velocity.y=y;
     }
     
-    public void reverseX(){
-        velocity.x = -1 * velocity.x;
+    public void update(float dt) {
+        heliAnim.update(dt);
+        if ( velocity.dst(0,0,0) > 200){
+            int slow = 2;
+            if (velocity.x > 0) velocity.x -= slow; else velocity.x += slow;
+            if (velocity.y > 0) velocity.y -= slow; else velocity.y += slow;
+        }
+        velocity.scl(dt);
+        position.add(velocity.x, velocity.y, 0);
+        velocity.scl(1 / dt);
+        Hitbox.setPosition(position.x, position.y);
+        if (position.x <= 5) goRight();
+        else if (position.y <= 5 ) goUp();
+        else if (position.x + getWidth() >= GameDemo.WIDTH-5) goLeft();
+        else if (position.y + getHeight() >= GameDemo.HEIGHT-5) goDown();
     }
 
-    public void reverseY(){
-        velocity.y = -1 * velocity.y;
+    public void fixOrientation(){
+        if (velocity.x >= 0) {
+            if (!FACING_RIGHT) {
+                heliAnim.flipFrames();
+                FACING_RIGHT = true;
+            }
+        }
+        else if (FACING_RIGHT) { // and moving left
+            heliAnim.flipFrames();
+            FACING_RIGHT = false;
+        }
     }
+    
+    public void goLeft(){ velocity.x = -1*Math.abs(velocity.x); fixOrientation(); }
+    public void goRight(){ velocity.x = Math.abs(velocity.x); fixOrientation(); }
+    
+    public void goUp(){ velocity.y = Math.abs(velocity.y); }
+    public void goDown(){ velocity.y = -1 * Math.abs(velocity.y); }
    
     public boolean collides(Rectangle hitbox){
         return hitbox.overlaps(Hitbox);
@@ -63,9 +105,11 @@ public class Heli {
         return Hitbox;
     }
 
-    public Vector2 getPosition(){
+    public Vector3 getPosition(){
         return position;
     }
+    
+    public Vector3 getVelocity(){ return velocity; }
 
     public void dispose(){
         texture.dispose();

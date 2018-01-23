@@ -38,4 +38,6 @@ public class Anim {
     public TextureRegion getFrame() {
         return frames.get(frame);
     }
+    
+    protected void flipFrames(){ for (TextureRegion tr:frames) tr.flip(true, false); }
 }
