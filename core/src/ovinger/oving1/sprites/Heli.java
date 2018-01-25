@@ -54,24 +54,24 @@ public class Heli {
     }
 
     public void setVelocity(float x, float y){
-        velocity.x=x; velocity.y=y;
+        velocity.x=x; velocity.y=y; fixOrientation();
     }
     
     public void update(float dt) {
         heliAnim.update(dt);
-        if ( velocity.dst(0,0,0) > 200){
-            int slow = 2;
-            if (velocity.x > 0) velocity.x -= slow; else velocity.x += slow;
-            if (velocity.y > 0) velocity.y -= slow; else velocity.y += slow;
-        }
+        float slowFactor = 0.01f;
+        if (Math.abs(velocity.x) > 24) velocity.x -= slowFactor * velocity.x;
+        if (Math.abs(velocity.y) > 15) velocity.y -= slowFactor * velocity.y;
+//        if (velocity.y > 20) velocity.y -= slow; else if (velocity.y < -20) velocity.y += slow;
         velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);
         velocity.scl(1 / dt);
         Hitbox.setPosition(position.x, position.y);
-        if (position.x <= 5) goRight();
-        else if (position.y <= 5 ) goUp();
-        else if (position.x + getWidth() >= GameDemo.WIDTH-5) goLeft();
-        else if (position.y + getHeight() >= GameDemo.HEIGHT-5) goDown();
+        int boundary = 2;
+        if (position.x <= boundary) goRight();
+        else if (position.y - getHeight() <= boundary ) goUp();
+        else if (position.x + getWidth() >= GameDemo.WIDTH - boundary) goLeft();
+        else if (position.y >= GameDemo.HEIGHT - boundary) goDown();
     }
 
     public void fixOrientation(){
@@ -85,6 +85,12 @@ public class Heli {
             heliAnim.flipFrames();
             FACING_RIGHT = false;
         }
+    }
+    
+    public void reverseX(){ if (velocity.x > 0) goLeft(); else goRight();
+    }
+    
+    public void reverseY(){ if (velocity.y > 0) goDown(); else goUp();
     }
     
     public void goLeft(){ velocity.x = -1*Math.abs(velocity.x); fixOrientation(); }
