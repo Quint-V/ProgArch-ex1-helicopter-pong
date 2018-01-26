@@ -19,11 +19,10 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
     
     private Heli helicopter;
     private BitmapFont font;
-    private Texture base;
-
+    
     public Task_1_2_state(GameStateManager gsm){
         super(gsm);
-        base = new Texture("heli1.png");
+        Texture base = new Texture("heli1.png");
         font = new BitmapFont();
         helicopter = new Heli(GameDemo.WIDTH/2-base.getWidth()+100, GameDemo
                 .HEIGHT/2-base.getHeight()-base.getHeight());
@@ -51,8 +50,6 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         cam.update();
     }
     
-    
-
 
     @Override
     public void render(SpriteBatch sb) {
@@ -63,13 +60,14 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         font.draw(sb, "\nHelicopter 1\n x: " + ( (int) helicopter.getPosition().x ) +
                           "\n y: " + (800-(int) helicopter.getPosition().y),
                   20,GameDemo.HEIGHT-20);
-        font.draw(sb, "Press R to reset", GameDemo.WIDTH*1/12,GameDemo.HEIGHT*0.05f);
+        font.draw(sb, "Press R to reset", GameDemo.WIDTH/12,GameDemo.HEIGHT*0.05f);
         sb.end();
     }
 
     @Override
     public void dispose() {
         helicopter.dispose();
+        font.dispose();
         System.out.print("\n Play state (tasks 1,2) disposed.");
     }
 }

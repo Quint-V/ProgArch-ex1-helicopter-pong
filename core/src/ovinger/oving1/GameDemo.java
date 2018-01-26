@@ -22,7 +22,6 @@ public class GameDemo extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(0.2f, 0.72f, 1, 1);
 		gsm.push(new MenuState(gsm));
-		
 	}
 
 	@Override

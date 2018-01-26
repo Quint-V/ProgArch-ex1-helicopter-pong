@@ -1,10 +1,8 @@
 package ovinger.oving1.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector3;
 
 import ovinger.oving1.GameDemo;
@@ -48,11 +46,6 @@ public class Heli {
     public int getHeight() {return heliAnim.getFrame().getRegionHeight();}
     public int getWidth() {return heliAnim.getFrame().getRegionWidth();}
     
-    public void setPosition(int x, int y){
-        position.x = x;
-        position.y = y;
-    }
-
     public void setVelocity(float x, float y){
         velocity.x=x; velocity.y=y; fixOrientation();
     }
