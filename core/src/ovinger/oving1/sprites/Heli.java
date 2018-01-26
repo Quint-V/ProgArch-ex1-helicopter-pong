@@ -60,8 +60,8 @@ public class Heli {
     public void update(float dt) {
         heliAnim.update(dt);
         float slowFactor = 0.01f;
-        if (Math.abs(velocity.x) > 24) velocity.x -= slowFactor * velocity.x;
-        if (Math.abs(velocity.y) > 15) velocity.y -= slowFactor * velocity.y;
+        if (Math.abs(velocity.x) > 70) velocity.x -= slowFactor * velocity.x;
+        if (Math.abs(velocity.y) > 50) velocity.y -= slowFactor * velocity.y;
 //        if (velocity.y > 20) velocity.y -= slow; else if (velocity.y < -20) velocity.y += slow;
         velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);

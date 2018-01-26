@@ -63,12 +63,13 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         font.draw(sb, "\nHelicopter 1\n x: " + ( (int) helicopter.getPosition().x ) +
                           "\n y: " + (800-(int) helicopter.getPosition().y),
                   20,GameDemo.HEIGHT-20);
+        font.draw(sb, "Press R to reset", GameDemo.WIDTH*1/12,GameDemo.HEIGHT*0.05f);
         sb.end();
     }
 
     @Override
     public void dispose() {
         helicopter.dispose();
-        System.out.print("\n Play state disposed.");
+        System.out.print("\n Play state (tasks 1,2) disposed.");
     }
 }
