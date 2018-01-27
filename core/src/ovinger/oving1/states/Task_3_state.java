@@ -28,6 +28,7 @@ public class Task_3_state extends State{
 		helicopter = new Array<Heli>();
 		font = new BitmapFont();
 		Vector3 random = new Vector3().setToRandomDirection().scl(START_VELOCITY);
+		
 		helicopter.add(new Heli(GameDemo.WIDTH/2 + 70,
 								GameDemo.HEIGHT*5/6,
 								(int) random.x, (int) random.y));

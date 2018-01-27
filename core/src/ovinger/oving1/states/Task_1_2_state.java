@@ -57,7 +57,7 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         sb.begin();
         sb.draw(helicopter.getTexture(), helicopter.getPosition().x,
                 GameDemo.HEIGHT-helicopter.getPosition().y);
-        font.draw(sb, "\nHelicopter 1\n x: " + ( (int) helicopter.getPosition().x ) +
+        font.draw(sb, "\nHelicopter\n x: " + ( (int) helicopter.getPosition().x ) +
                           "\n y: " + (800-(int) helicopter.getPosition().y),
                   20,GameDemo.HEIGHT-20);
         font.draw(sb, "Press R to reset", GameDemo.WIDTH/12,GameDemo.HEIGHT*0.05f);
