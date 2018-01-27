@@ -10,42 +10,58 @@ import ovinger.oving1.GameDemo;
 /**
  * Created by VWW on 26.01.2018.
  *
- * Player starts on the left. Computer starts on the right.
+ * Player starts on the right.
  */
 
 public class PongPad {
 
 	// PlayBox size: GameDemo.HEIGHT/2, centered.
 	private Rectangle hitbox;
-	private Vector2 position; // position = center
+	private Vector2 position, center;
 	private float velocity;
-	private static final float MAX_VELOCITY = 150;
+	private static final float MAX_VELOCITY = 250;
+	private boolean isPlayer;
 	
 	public PongPad(boolean player){
-		if (player) position = new Vector2(GameDemo.WIDTH /10, GameDemo.HEIGHT/2);
-		else position = new Vector2(GameDemo.WIDTH * 9/10, GameDemo.HEIGHT/2);
-		hitbox = new Rectangle(position.x-2, position.y-15, 4, 30);
-		velocity = GameDemo.HEIGHT/6;
+		if (player){
+			center = new Vector2(GameDemo.WIDTH * 8/10, GameDemo.HEIGHT/2);
+			isPlayer = true;
+		}
+		else {
+			center = new Vector2(GameDemo.WIDTH * 2/10, GameDemo.HEIGHT/2);
+			isPlayer = false;
+		}
+		hitbox = new Rectangle(center.x-3, center.y-30, 6, 60);
+		position = new Vector2(center.x-3, center.y-30);
+		velocity = GameDemo.HEIGHT/4;
 	}
 	
-	public void moveUp(){ position.add(0, Gdx.graphics.getDeltaTime() * velocity); }
-
-	public void moveDown(){ position.add(0, Gdx.graphics.getDeltaTime() * -velocity); }
+	boolean isPlayer(){ return this.isPlayer; }
 	
-	public void computerMove(PongBall ball){
-		if (ball.getPosition().y > position.y) moveUp(); else moveDown(); }
+	public void moveUp(){
+		position.add(0, Gdx.graphics.getDeltaTime() * velocity);
+		center.add(0, Gdx.graphics.getDeltaTime() * velocity);
+		hitbox.setPosition(position.x, position.y);
+	}
+	public void moveDown() {
+		position.add(0, Gdx.graphics.getDeltaTime() * -velocity);
+		center.add(0, Gdx.graphics.getDeltaTime() * -velocity);
+		hitbox.setPosition(position.x, position.y);
+	}
 	
-	public void moveUp(float dt){
-		position.add(0, velocity*dt);
+	public void computerMoveTo(float y){
+		if (y > this.center.y && GameDemo.HEIGHT*3/4 > position.y + hitbox.getHeight()) moveUp();
+		else if (y < center.y && GameDemo.HEIGHT/4 < position.y) moveDown();
 	}
 
-	public void setPosition(float x, float y){ position.x=x; position.y=y; }
-	
 	public Vector2 getPosition() { return position; }
+	public Vector2 getCenter(){
+		return center;}
 	
 	public Rectangle getHitbox() {	return hitbox; }
-	
+	public float getWidth() { return hitbox.getWidth();}
+	public float getHeight() { return hitbox.getHeight(); }
+
 	public float getVelocity() {	return velocity; }
-	
 	public void setVelocity(float speedY) { velocity = speedY; }
 }

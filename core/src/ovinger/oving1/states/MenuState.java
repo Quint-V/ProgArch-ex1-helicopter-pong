@@ -39,7 +39,7 @@ public class MenuState extends State{
                 System.out.println("Task 3 running");
             }
             else if (Gdx.input.getY() < GameDemo.HEIGHT ){
-                gsm.set(new Pong_State(gsm));
+                gsm.set(new PongState(gsm));
                 System.out.println("Pong running");
             }
         }
