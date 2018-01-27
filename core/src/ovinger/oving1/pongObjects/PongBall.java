@@ -15,7 +15,7 @@ public class PongBall {
 	
 	private Vector2 position, velocity;
 	private Circle hitbox;
-	private static final float START_VELOCITY = GameDemo.WIDTH/6+20;
+	private static final float START_VELOCITY = GameDemo.WIDTH/6+50;
 	private Sound boing;
 	
 	public PongBall(){
@@ -36,11 +36,9 @@ public class PongBall {
 	// TODO: use direction to determine collision type
 	public boolean collidesWithPad(PongPad pad){
 		if (pad.isPlayer())
-			return pad.getHitbox().contains(position.x + hitbox.radius, position.y);
-		else return pad.getHitbox().contains(position.x - hitbox.radius, position.y);
+			return pad.getHitbox().contains(position.x + hitbox.radius/2, position.y);
+		else return pad.getHitbox().contains(position.x - hitbox.radius/2, position.y);
 	}
-
-	// max angular offset from x axis: 75 deg
 	
 	public void bounceOffPlayer(PongPad pad) {
 		velocity.setAngle(180-velocity.angle());
@@ -57,11 +55,17 @@ public class PongBall {
 		velocity.rotate(turn);
 		if (velocity.x < 0) velocity.x = Math.abs(velocity.x);
 		boing.play(0.3f);
+		if (velocity.len() > 500) {
+			pad.increaseVelocity(100);
+			velocity.setAngle(0);
+			velocity.rotate((float) (Math.random()-0.5)*160);
+		}
 /*		if (velocity.angle() < 90-75) velocity.setAngle(90-75);
 		if (velocity.angle() > 90+75) velocity.setAngle(90+75); /**/
 	}
 
-	public void bounceOffWall() { velocity.y *= -1;}
+	public void goDown(){ velocity.y = -Math.abs(velocity.y);}
+	public void goUp(){ velocity.y = Math.abs(velocity.y);}
 	
 	public Vector2 getPosition() { return position; }
 	public float getRadius() { return hitbox.radius; }

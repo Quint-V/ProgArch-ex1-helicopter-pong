@@ -31,9 +31,10 @@ public class Task_3_state extends State{
 		font = new BitmapFont();
 		
 		bgm = Gdx.audio.newMusic(Gdx.files.internal("rosahelikopter.mp3"));
-		bgm.setVolume(0.1f);
+		bgm.setVolume(0.4f);
 		bgm.setLooping(true);
 		bgm.play();
+		bgm.setPosition(33);
 		
 		Vector3 random = new Vector3().setToRandomDirection().scl(START_VELOCITY);
 		helicopter.add(new Heli(GameDemo.WIDTH/2 + 70,

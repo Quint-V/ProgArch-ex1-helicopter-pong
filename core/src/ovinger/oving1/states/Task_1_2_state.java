@@ -32,10 +32,10 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         base.dispose();
         
         bgm = Gdx.audio.newMusic(Gdx.files.internal("rosahelikopter.mp3"));
-        bgm.setVolume(0.1f);
+        bgm.setVolume(0.4f);
         bgm.setLooping(true);
         bgm.play();
-    
+        bgm.setPosition(33);
     }
 
     
@@ -44,10 +44,10 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
         if (Gdx.input.isKeyJustPressed(Input.Keys.R))
             gsm.set(new MenuState(gsm));
         if (Gdx.input.isTouched()) {
-            Vector2 diff = new Vector2(
-                    Gdx.input.getX() - helicopter.getPosition().x-helicopter.getWidth()/2,
-                    Gdx.input.getY() - (helicopter.getPosition().y-helicopter.getHeight()/2));
-            helicopter.setVelocity(diff.x, diff.y*.7f);
+                Vector2 diff = new Vector2(
+                        Gdx.input.getX() - helicopter.getPosition().x - helicopter.getWidth() / 2,
+                        Gdx.input.getY() - ( helicopter.getPosition().y - helicopter.getHeight() / 2 ));
+                helicopter.setVelocity(diff.x, diff.y * .7f);
         }
     }
 

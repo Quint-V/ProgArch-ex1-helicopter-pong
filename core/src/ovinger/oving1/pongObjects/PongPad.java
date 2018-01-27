@@ -19,21 +19,24 @@ public class PongPad {
 	private Rectangle hitbox;
 	private Vector2 position, center;
 	private float velocity;
-	private static final float MAX_VELOCITY = 250;
+	private static final float BASE_VELOCITY = GameDemo.HEIGHT/4;
 	private boolean isPlayer;
+	private float padWidth, padHeight;
 	
 	public PongPad(boolean player){
 		if (player){
 			center = new Vector2(GameDemo.WIDTH * 8/10, GameDemo.HEIGHT/2);
 			isPlayer = true;
+			velocity = GameDemo.HEIGHT/2;
 		}
 		else {
 			center = new Vector2(GameDemo.WIDTH * 2/10, GameDemo.HEIGHT/2);
 			isPlayer = false;
+			velocity = GameDemo.HEIGHT/4;
 		}
-		hitbox = new Rectangle(center.x-3, center.y-30, 6, 60);
-		position = new Vector2(center.x-3, center.y-30);
-		velocity = GameDemo.HEIGHT/4;
+		padWidth = 10; padHeight = 72;
+		hitbox = new Rectangle(center.x- padWidth /2, center.y- padHeight /2, padWidth, padHeight);
+		position = new Vector2(center.x- padWidth /2, center.y- padHeight /2);
 	}
 	
 	boolean isPlayer(){ return this.isPlayer; }
@@ -59,9 +62,10 @@ public class PongPad {
 		return center;}
 	
 	public Rectangle getHitbox() {	return hitbox; }
-	public float getWidth() { return hitbox.getWidth();}
-	public float getHeight() { return hitbox.getHeight(); }
+	public float getWidth() { return padWidth;}
+	public float getHeight() { return padHeight; }
 
-	public float getVelocity() {	return velocity; }
-	public void setVelocity(float speedY) { velocity = speedY; }
+	public void increaseVelocity(float speedY) { velocity += speedY; }
+	public float getVelocity() {return velocity;}
+	public float getBaseVelocity() {return BASE_VELOCITY;}
 }
