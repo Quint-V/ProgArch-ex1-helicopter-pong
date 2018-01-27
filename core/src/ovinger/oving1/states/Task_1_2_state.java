@@ -2,6 +2,7 @@ package ovinger.oving1.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -19,6 +20,7 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
     
     private Heli helicopter;
     private BitmapFont font;
+    private Music bgm;
     
     public Task_1_2_state(GameStateManager gsm){
         super(gsm);
@@ -28,6 +30,12 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
                 .HEIGHT/2-base.getHeight()-base.getHeight());
         cam.setToOrtho(false, GameDemo.WIDTH, GameDemo.HEIGHT);
         base.dispose();
+        
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("rosahelikopter.mp3"));
+        bgm.setVolume(0.1f);
+        bgm.setLooping(true);
+        bgm.play();
+    
     }
 
     
@@ -68,6 +76,7 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
     public void dispose() {
         helicopter.dispose();
         font.dispose();
+        bgm.stop(); bgm.dispose();
         System.out.print("\n Play state (tasks 1,2) disposed.");
     }
 }

@@ -18,7 +18,6 @@ public class MenuState extends State{
 
     private BitmapFont text;
     private ShapeRenderer shapeRenderer;
-    static private boolean projectionMatrixSet;
 
     public MenuState(GameStateManager gsm){
         super(gsm);
@@ -53,7 +52,7 @@ public class MenuState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
-        if (!projectionMatrixSet) shapeRenderer.setProjectionMatrix(sb.getProjectionMatrix());
+        shapeRenderer.setProjectionMatrix(cam.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0.5f, 0, 0, 0.1f));   // Red
         shapeRenderer.rect(0, GameDemo.HEIGHT/3*2, GameDemo.WIDTH*1, GameDemo.HEIGHT/3);

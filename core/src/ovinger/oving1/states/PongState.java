@@ -2,6 +2,7 @@ package ovinger.oving1.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,7 @@ public class PongState extends State { // write like Task_1_2_state?
 	private boolean GAME_OVER;
 	private int PLAYER_SCORE, COMPUTER_SCORE, round;
 	private float TIME_PASSED;
+	private Music bgm;
 	
 	
 	public PongState(GameStateManager gsm) {
@@ -40,6 +42,10 @@ public class PongState extends State { // write like Task_1_2_state?
 		COMPUTER_SCORE = 0;
 		TIME_PASSED = 0;
 		round = 1;
+		bgm = Gdx.audio.newMusic(Gdx.files.internal("tetrisremix.mp3"));
+		bgm.setLooping(true);
+		bgm.setVolume(0.2f);
+		bgm.play();
 	}
 	
 	private void playerWinRound(boolean win) {
@@ -143,6 +149,7 @@ public class PongState extends State { // write like Task_1_2_state?
 	public void dispose() {
 		shapeRenderer.dispose();
 		font.dispose();
+		bgm.stop(); bgm.dispose();
 		System.out.print("\n Play state (Pong) disposed.");
 	}
 }

@@ -2,6 +2,7 @@ package ovinger.oving1.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,12 +22,19 @@ public class Task_3_state extends State{
 	private Array<Heli> helicopter;
 	private static final int START_VELOCITY = 100;
 	private BitmapFont font;
+	private Music bgm;
 	
 	public Task_3_state(GameStateManager gsm){
 		super(gsm);
 		Texture base = new Texture("heli1.png");
 		helicopter = new Array<Heli>();
 		font = new BitmapFont();
+		
+		bgm = Gdx.audio.newMusic(Gdx.files.internal("rosahelikopter.mp3"));
+		bgm.setVolume(0.1f);
+		bgm.setLooping(true);
+		bgm.play();
+		
 		Vector3 random = new Vector3().setToRandomDirection().scl(START_VELOCITY);
 		helicopter.add(new Heli(GameDemo.WIDTH/2 + 70,
 								GameDemo.HEIGHT*5/6,
@@ -121,6 +129,7 @@ public class Task_3_state extends State{
 	public void dispose() {
 		for (Heli h:helicopter)	h.dispose();
 		font.dispose();
+		bgm.stop(); bgm.dispose();
 		System.out.print("\n Play state (task 3) disposed.");
 	}
 	
