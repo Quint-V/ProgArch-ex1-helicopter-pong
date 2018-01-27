@@ -49,11 +49,16 @@ public class Pong_State extends State { // write like Task_1_2_state?
 		if (Gdx.input.isKeyJustPressed(Input.Keys.R))
 			gsm.set(new MenuState(gsm));
 		// TODO: let player pad move at a steady pace towards position touched on the screen.
+		if (Gdx.input.isTouched()) {
+			int pointer = Gdx.input.getY();
+			if (pointer > player.getPosition().y) player.moveUp(); else player.moveDown();
+		}
 	}
 	
 	@Override
 	public void update(float dt) {
 		handleInput();
+		ball.update(dt);
 		if (! GAME_OVER){ // PLAY
 			// TODO: make computer player drift at a steady speed towards the ball's position
 

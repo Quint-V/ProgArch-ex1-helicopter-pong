@@ -70,9 +70,9 @@ public class Task_3_state extends State{
 			Heli h1 = helicopter.get(i);
 			h1.update(dt);
 			for (int j = 0; j < helicopter.size; j++){
-				Heli h2 = helicopter.get(j);
 				if ( i!= j) {
-					if (h1.getHitbox().overlaps(h2.getHitbox())) {
+				Heli h2 = helicopter.get(j);
+					if (h1.collides(h2)) {
 						Vector3 p1 = h1.getPosition();
 						Vector3 p2 = h2.getPosition();
 						Vector3 diag = new Vector3(h1.getWidth(), h1.getHeight(), 0);

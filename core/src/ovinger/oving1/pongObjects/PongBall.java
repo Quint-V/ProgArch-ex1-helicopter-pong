@@ -1,9 +1,7 @@
 package ovinger.oving1.pongObjects;
 
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 
 import ovinger.oving1.GameDemo;
 
@@ -26,8 +24,12 @@ public class PongBall {
 	
 	public void update(float dt){
 		float boundary = hitbox.radius/4;
-		if (position.y + hitbox.radius <= boundary || position.y >= GameDemo.HEIGHT - boundary)
-			velocity.y = -1 * velocity.y;
+		if (position.y+hitbox.radius<=boundary || position.y>=GameDemo.HEIGHT-boundary)
+			velocity.y *= -1;
+		velocity.scl(dt);
+		position.add(velocity.x, velocity.y);
+		velocity.scl(1 / dt);
+		hitbox.setPosition(position.x, position.y);
 	}
 	
 	// TODO: use direction to determine collision type
@@ -36,4 +38,13 @@ public class PongBall {
 		else return pad.getHitbox().contains(position.x - hitbox.radius, position.y);
 	}
 	
+	public void bounce(PongPad pad){ velocity.x *= -1; }
+	
+	public Vector2 getPosition() {
+		return position;
+	}
+	
+	public Circle getHitbox() {
+		return hitbox;
+	}
 }

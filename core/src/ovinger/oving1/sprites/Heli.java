@@ -80,11 +80,9 @@ public class Heli {
         }
     }
     
-    public void reverseX(){ if (velocity.x > 0) goLeft(); else goRight();
-    }
+    public void reverseX(){ velocity.x *= -1;}
     
-    public void reverseY(){ if (velocity.y > 0) goDown(); else goUp();
-    }
+    public void reverseY() { velocity.y *= -1;}
     
     public void goLeft(){ velocity.x = -1*Math.abs(velocity.x); fixOrientation(); }
     public void goRight(){ velocity.x = Math.abs(velocity.x); fixOrientation(); }
@@ -92,8 +90,8 @@ public class Heli {
     public void goUp(){ velocity.y = Math.abs(velocity.y); }
     public void goDown(){ velocity.y = -1 * Math.abs(velocity.y); }
    
-    public boolean collides(Rectangle hitbox){
-        return hitbox.overlaps(Hitbox);
+    public boolean collides(Heli otherHeli){
+        return this.getHitbox().overlaps(otherHeli.getHitbox());
     }
 
     public TextureRegion getTexture(){
@@ -107,8 +105,6 @@ public class Heli {
     public Vector3 getPosition(){
         return position;
     }
-    
-    public Vector3 getVelocity(){ return velocity; }
 
     public void dispose(){
         texture.dispose();
