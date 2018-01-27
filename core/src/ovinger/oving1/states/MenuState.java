@@ -1,7 +1,9 @@
 package ovinger.oving1.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,7 +22,6 @@ public class MenuState extends State{
 
     public MenuState(GameStateManager gsm){
         super(gsm);
-        Gdx.gl.glClearColor(0.2f, 0.72f, 1, 1);
         cam.setToOrtho(false, GameDemo.WIDTH, GameDemo.HEIGHT);
         text = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
@@ -38,7 +39,7 @@ public class MenuState extends State{
                 System.out.println("Task 3 running");
             }
             else if (Gdx.input.getY() < GameDemo.HEIGHT ){
-                gsm.set(new PongState(gsm));
+                gsm.set(new Pong_State(gsm));
                 System.out.println("Pong running");
             }
         }
@@ -55,7 +56,7 @@ public class MenuState extends State{
         if (!projectionMatrixSet) shapeRenderer.setProjectionMatrix(sb.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0.5f, 0, 0, 0.1f));   // Red
-        shapeRenderer.rect(0, GameDemo.HEIGHT/3*2, GameDemo.WIDTH, GameDemo.HEIGHT/3);
+        shapeRenderer.rect(0, GameDemo.HEIGHT/3*2, GameDemo.WIDTH*1, GameDemo.HEIGHT/3);
         shapeRenderer.setColor(new Color(0,.5f,0, 0.1f)); // Green
         shapeRenderer.rect(0, GameDemo.HEIGHT/3, GameDemo.WIDTH, GameDemo.HEIGHT/3);
         shapeRenderer.setColor(new Color(0.2f, 0.32f, 0.62f, 0.1f));    // Blue
