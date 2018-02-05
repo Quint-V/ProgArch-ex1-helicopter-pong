@@ -25,7 +25,6 @@ public class PongBall {
 		boing = Gdx.audio.newSound(Gdx.files.internal("Mario_Coin.ogg"));
 	}
 	
-	
 	public void update(float dt){
 		velocity.scl(dt);
 		position.add(velocity.x, velocity.y);

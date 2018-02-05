@@ -11,7 +11,6 @@ import java.util.Stack;
 public class GameStateManager {
 
     private Stack<State> states;
-    
     private static final GameStateManager INSTANCE = new GameStateManager();
     
     public static GameStateManager getInstance() { return INSTANCE; }
@@ -22,7 +21,7 @@ public class GameStateManager {
 
     public void pop() { states.pop().dispose(); }
 
-    public void set(State state){ states.pop().dispose(); states.push(state); }
+    public void set(State state){ pop(); push(state); }
 
     public void update(float dt) {states.peek().update(dt); }
 
