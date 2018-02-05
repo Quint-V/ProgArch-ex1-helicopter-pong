@@ -18,14 +18,12 @@ import ovinger.oving1.pongObjects.PongPad;
 
 public class PongState extends State { // write like Task_1_2_state?
 	
-	private BitmapFont font;
 	private ShapeRenderer shapeRenderer;
 	private PongBall ball;
 	private PongPad player, computer;
 	private boolean GAME_OVER;
 	private int PLAYER_SCORE, COMPUTER_SCORE, round, scoreToWin;
 	private float TIME_PASSED;
-	private Music bgm;
 	
 	
 	public PongState() {
@@ -44,7 +42,7 @@ public class PongState extends State { // write like Task_1_2_state?
 		COMPUTER_SCORE = 0;
 		TIME_PASSED = 0;
 		round = 1;
-		scoreToWin = 1;
+		scoreToWin = 5;
 
 		bgm = Gdx.audio.newMusic(Gdx.files.internal("tetrisremix.mp3"));
 		bgm.setLooping(true);

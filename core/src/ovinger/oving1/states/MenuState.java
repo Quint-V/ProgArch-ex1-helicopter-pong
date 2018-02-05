@@ -14,7 +14,6 @@ import ovinger.oving1.GameDemo;
 public class MenuState extends State{
 
     private ShapeRenderer shapeRenderer;
-	
     
     public MenuState(){
         super();

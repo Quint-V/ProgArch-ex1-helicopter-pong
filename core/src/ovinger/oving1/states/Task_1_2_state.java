@@ -19,7 +19,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Task_1_2_state extends State { // write like Task_1_2_state?
     
     private Heli helicopter;
-    private Music bgm;
     
     public Task_1_2_state(){
         super();

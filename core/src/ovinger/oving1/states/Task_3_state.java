@@ -2,7 +2,6 @@ package ovinger.oving1.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,8 +20,6 @@ public class Task_3_state extends State{
 	
 	private Array<Heli> helicopter;
 	private static final int START_VELOCITY = 100;
-	private BitmapFont font;
-	private Music bgm;
 	
 	public Task_3_state(){
 		super();
