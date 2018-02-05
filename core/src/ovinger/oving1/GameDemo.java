@@ -13,15 +13,14 @@ public class GameDemo extends ApplicationAdapter {
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 800;
 	public static final String TITLE = "Helicopter";
-	private GameStateManager gsm;
 	private SpriteBatch batch;
+	private GameStateManager gsm = GameStateManager.getInstance();
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(0.2f, 0.72f, 1, 1);
-		gsm.push(new MenuState(gsm));
+		gsm.push(new MenuState());
 	}
 
 	@Override

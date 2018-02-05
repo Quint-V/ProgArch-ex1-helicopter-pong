@@ -13,13 +13,13 @@ import ovinger.oving1.GameDemo;
 
 public class MenuState extends State{
 
-    private BitmapFont text;
     private ShapeRenderer shapeRenderer;
-
-    public MenuState(GameStateManager gsm){
-        super(gsm);
+	
+    
+    public MenuState(){
+        super();
         cam.setToOrtho(false, GameDemo.WIDTH, GameDemo.HEIGHT);
-        text = new BitmapFont();
+        font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
     }
 
@@ -27,15 +27,15 @@ public class MenuState extends State{
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
             if (Gdx.input.getY() < GameDemo.HEIGHT/3){
-                gsm.set(new Task_1_2_state(gsm));
+                gsm.set(new Task_1_2_state());
                 System.out.println("Tasks 1, 2 running");
             }
             else if (Gdx.input.getY() < GameDemo.HEIGHT*2/3){
-                gsm.set(new Task_3_state(gsm));
+                gsm.set(new Task_3_state());
                 System.out.println("Task 3 running");
             }
             else if (Gdx.input.getY() < GameDemo.HEIGHT ){
-                gsm.set(new PongState(gsm));
+                gsm.set(new PongState());
                 System.out.println("Pong running");
             }
         }
@@ -59,17 +59,17 @@ public class MenuState extends State{
         shapeRenderer.rect(0, GameDemo.HEIGHT, GameDemo.WIDTH, GameDemo.HEIGHT/3);
         shapeRenderer.end();
         sb.begin();
-        text.draw(sb, "Press R to reset", GameDemo.WIDTH/5,GameDemo.HEIGHT*0.5f);
-        text.draw(sb, "Tasks 1 & 2", cam.position.x,GameDemo.HEIGHT*5/6);
-        text.draw(sb, "Task 3", cam.position.x, GameDemo.HEIGHT*3f/6);
-        text.draw(sb, "Pong", cam.position.x,GameDemo.HEIGHT*1f/6);
+        font.draw(sb, "Press R to reset", GameDemo.WIDTH/5,GameDemo.HEIGHT*0.5f);
+        font.draw(sb, "Tasks 1 & 2", cam.position.x,GameDemo.HEIGHT*5/6);
+        font.draw(sb, "Task 3", cam.position.x, GameDemo.HEIGHT*3f/6);
+        font.draw(sb, "Pong", cam.position.x,GameDemo.HEIGHT*1f/6);
         sb.end();
     }
 
     @Override
     public void dispose() {
         shapeRenderer.dispose();
-        text.dispose();
+        font.dispose();
         System.out.println("\n Menu state disposed.");
     }
 

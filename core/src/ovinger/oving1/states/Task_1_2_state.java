@@ -19,11 +19,10 @@ import com.badlogic.gdx.math.Vector2;
 public class Task_1_2_state extends State { // write like Task_1_2_state?
     
     private Heli helicopter;
-    private BitmapFont font;
     private Music bgm;
     
-    public Task_1_2_state(GameStateManager gsm){
-        super(gsm);
+    public Task_1_2_state(){
+        super();
         Texture base = new Texture("heli1.png");
         font = new BitmapFont();
         helicopter = new Heli(GameDemo.WIDTH/2-base.getWidth()+100, GameDemo
@@ -42,7 +41,7 @@ public class Task_1_2_state extends State { // write like Task_1_2_state?
     @Override
     protected void handleInput() {  // when touching, let heli drift towards pointer.
         if (Gdx.input.isKeyJustPressed(Input.Keys.R))
-            gsm.set(new MenuState(gsm));
+            gsm.set(new MenuState());
         if (Gdx.input.isTouched()) {
                 Vector2 diff = new Vector2(
                         Gdx.input.getX() - helicopter.getPosition().x - helicopter.getWidth() / 2,

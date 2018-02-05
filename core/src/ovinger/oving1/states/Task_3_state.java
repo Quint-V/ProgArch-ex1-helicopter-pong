@@ -24,8 +24,8 @@ public class Task_3_state extends State{
 	private BitmapFont font;
 	private Music bgm;
 	
-	public Task_3_state(GameStateManager gsm){
-		super(gsm);
+	public Task_3_state(){
+		super();
 		Texture base = new Texture("heli1.png");
 		helicopter = new Array<Heli>();
 		font = new BitmapFont();
@@ -69,7 +69,7 @@ public class Task_3_state extends State{
 	@Override
 	protected void handleInput() {  // when touching, let heli drift towards pointer.
 		if (Gdx.input.isKeyJustPressed(Input.Keys.R))
-			gsm.set(new MenuState(gsm));
+			gsm.set(new MenuState());
 	}
 	
 	@Override

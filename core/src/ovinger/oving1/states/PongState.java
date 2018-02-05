@@ -28,8 +28,8 @@ public class PongState extends State { // write like Task_1_2_state?
 	private Music bgm;
 	
 	
-	public PongState(GameStateManager gsm) {
-		super(gsm);
+	public PongState() {
+		super();
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.1f);
 		font = new BitmapFont(true);
 		shapeRenderer = new ShapeRenderer();
@@ -65,7 +65,7 @@ public class PongState extends State { // write like Task_1_2_state?
 	
 	@Override
 	protected void handleInput() {
-		if (Gdx.input.isKeyJustPressed(Input.Keys.R)) gsm.set(new MenuState(gsm));
+		if (Gdx.input.isKeyJustPressed(Input.Keys.R)) gsm.set(new MenuState());
 		
 		if (!GAME_OVER)
 			if (Gdx.input.isTouched()) {
