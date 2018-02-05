@@ -11,9 +11,11 @@ import java.util.Stack;
 public class GameStateManager {
 
     private Stack<State> states;
-    private static final GameStateManager INSTANCE = new GameStateManager();
+    private static GameStateManager INSTANCE = new GameStateManager();
     
-    public static GameStateManager getInstance() { return INSTANCE; }
+    public static GameStateManager getInstance() {
+        if (INSTANCE == null) INSTANCE = new GameStateManager();
+        return INSTANCE; }
 
     private GameStateManager(){ states = new Stack<State>(); }
 

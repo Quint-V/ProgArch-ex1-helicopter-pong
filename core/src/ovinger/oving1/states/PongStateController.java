@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ovinger.oving1.GameDemo;
-import ovinger.oving1.ioProcesses.PongController;
 import ovinger.oving1.pongObjects.PongBall;
 import ovinger.oving1.pongObjects.PongPad;
 import ovinger.oving1.rendringProcesses.PongView;
@@ -15,7 +14,7 @@ import ovinger.oving1.rendringProcesses.PongView;
  * Created by VWW on 25.01.2018.
  */
 
-public class PongStateModel extends State { // write like Task_1_2_state?
+public class PongStateController extends State { // write like Task_1_2_state?
 	
 	private PongBall ball;
 	private PongPad player, computer;
@@ -23,15 +22,13 @@ public class PongStateModel extends State { // write like Task_1_2_state?
 	private int PLAYER_SCORE, COMPUTER_SCORE, scoreToWin;
 	private float TIME_PASSED;
 	private PongView renderer;
-	private PongController controller;
 	
 	
-	PongStateModel() {
+	PongStateController() {
 		super();
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.1f);
 		font = new BitmapFont(true);
 		renderer = PongView.getInstance();
-		controller = PongController.getInstance();
 
 		player = new PongPad(true);
 		computer = new PongPad(false);
@@ -61,8 +58,22 @@ public class PongStateModel extends State { // write like Task_1_2_state?
 	
 	@Override		// functions as controller
 	protected void handleInput() {
-		controller.handleInput(player);
+		if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+			GameStateManager gsm = GameStateManager.getInstance();
+			gsm.set(new MenuState());
+		}
+		
+		if (!GAME_OVER)
+			if (Gdx.input.isTouched()) {
+				int pointer = GameDemo.HEIGHT - Gdx.input.getY();
+				if (pointer > player.getCenter().y &&
+						player.getPosition().y + player.getHitbox().getHeight() < GameDemo.HEIGHT*3/4)
+					player.moveUp();
+				else if  (pointer < player.getCenter().y &&
+						player.getPosition().y > GameDemo.HEIGHT/4) player.moveDown();
+			}
 	}
+	
 	
 	@Override	// functions as model
 	public void update(float dt) {

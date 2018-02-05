@@ -20,6 +20,7 @@ public class MenuState extends State{
         cam.setToOrtho(false, GameDemo.WIDTH, GameDemo.HEIGHT);
         font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
+        Gdx.gl.glClearColor(0.1f, 0.62f, 0.72f, 0.1f);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class MenuState extends State{
                 System.out.println("Task 3 running");
             }
             else if (Gdx.input.getY() < GameDemo.HEIGHT ){
-                gsm.set(new PongStateModel());
+                gsm.set(new PongStateController());
                 System.out.println("Pong running");
             }
         }
@@ -50,11 +51,11 @@ public class MenuState extends State{
         sb.setProjectionMatrix(cam.combined);
         shapeRenderer.setProjectionMatrix(cam.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0.5f, 0, 0, 0.1f));   // Red
+        shapeRenderer.setColor(new Color(0.5f, 0, 0, 1f));   // Red
         shapeRenderer.rect(0, GameDemo.HEIGHT/3*2, GameDemo.WIDTH, GameDemo.HEIGHT/3);
-        shapeRenderer.setColor(new Color(0,.5f,0, 0.1f)); // Green
+        shapeRenderer.setColor(new Color(0,.5f,0, 1f)); // Green
         shapeRenderer.rect(0, GameDemo.HEIGHT/3, GameDemo.WIDTH, GameDemo.HEIGHT/3);
-        shapeRenderer.setColor(new Color(0.2f, 0.32f, 0.62f, 0.1f));    // Blue
+        shapeRenderer.setColor(new Color(0.1f, 0.82f, 0.62f, 1f));    // Blue
         shapeRenderer.rect(0, GameDemo.HEIGHT, GameDemo.WIDTH, GameDemo.HEIGHT/3);
         shapeRenderer.end();
         sb.begin();

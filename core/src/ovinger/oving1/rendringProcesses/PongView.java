@@ -16,12 +16,14 @@ import ovinger.oving1.pongObjects.PongPad;
 
 public class PongView {
 	
-	private static final PongView renderer = new PongView();
+	private static PongView instance;
 	private ShapeRenderer shapeRenderer;
 	private OrthographicCamera cam;
 	private BitmapFont font;
 	
-	public static PongView getInstance(){return renderer;}
+	public static PongView getInstance(){
+		if (instance == null) instance = new PongView();
+		return instance;}
 	
 	private PongView(){
 		super();
